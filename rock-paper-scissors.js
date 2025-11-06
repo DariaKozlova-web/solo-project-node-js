@@ -1,7 +1,7 @@
 const gameStart = () => {
-  const aveableOptions = ["rock", "paper", "scissors"];
+  const availableOptions = ["rock", "paper", "scissors"];
   const randomOptionIndex = Math.floor(Math.random() * 3);
-  const randomOption = aveableOptions[randomOptionIndex];
+  const randomOption = availableOptions[randomOptionIndex];
   const userInput = process.argv[2];
   console.log("User chose: ", userInput);
   console.log("Computer chose: ", randomOption);
