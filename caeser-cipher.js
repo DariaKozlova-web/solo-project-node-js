@@ -38,29 +38,39 @@ const alphabet = [
   "z",
 ];
 
-const userPhrace = process.argv[2];
-const shiftNumber = Number(process.argv[3]);
-const wordsArray = userPhrace.split(" ");
-const newWordsArray = wordsArray.map((item) => {
-  const lettersArray = item.split("");
-  const newLettersArrey = lettersArray.map((letter) => {
-    const currentLetterOnAlphabetIdx = alphabet.findIndex(
-      (item) => item === letter
-    );
-    if (currentLetterOnAlphabetIdx > 0) {
-      const newIndex = currentLetterOnAlphabetIdx + shiftNumber;
-      console.log(newIndex);
+// const userPhrace = process.argv[2];
+// const shiftNumber = Number(process.argv[3]);
+const cipherLetter = (letter, shift) => {
+  const currentLetterIndex = alphabet.findIndex(
+    (item) => item === letter.toLowerCase() //если findIndex не находит букву(item) возвращает -1
+  );
+  if (currentLetterIndex < 0) {
+    return "*";
+  }
+  const newIndex = currentLetterIndex + shift;
+  let result = "";
+  if (newIndex > 0) {
+    if (newIndex <= alphabet.length) {
       const newLetter = alphabet[newIndex];
-      console.log("new letter: ", newLetter);
-      console.log(currentLetterOnAlphabetIdx);
-      console.log("alt letter: ", lettersArray[0]);
-      return newLetter;
+      result = newLetter;
     } else {
-      console.log("Letter is not find");
-      return "Letter is not find";
+      const remainderIndex = newIndex % alphabet.length;
+      const newLetter = alphabet[remainderIndex];
+      result = newLetter;
     }
-  });
-  console.log(newLettersArrey);
-  const result = "";
+  } else {
+    // если хвоста нет
+    if (newIndex * -1 <= alphabet.length) {
+      const newLetter = alphabet[alphabet.length + newIndex];
+      result = newLetter;
+    } else {
+      const remainderIndex = newIndex % alphabet.length;
+      const newLetter = alphabet[alphabet.length + remainderIndex];
+      result = newLetter;
+    }
+  }
   return result;
-});
+};
+const cipheredLetter = cipherLetter("A", 1);
+console.log(cipheredLetter);
+console.log(alphabet.length);
