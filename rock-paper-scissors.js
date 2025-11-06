@@ -1,24 +1,18 @@
-// console.log("hello,world!");
-// const userInput = process.argv;
-// console.log(userInput);
-// console.log(userInput[2]);
-
 const gameStart = () => {
-  const aveableOptions = ["rock", "paper", "scissors"];
+  const availableOptions = ["rock", "paper", "scissors"];
   const randomOptionIndex = Math.floor(Math.random() * 3);
-  const randomOption = aveableOptions[randomOptionIndex];
+  const randomOption = availableOptions[randomOptionIndex];
   const userInput = process.argv[2];
-  console.log("User: ", userInput);
-  console.log("Computer: ", randomOption);
+  console.log("User chose: ", userInput);
+  console.log("Computer chose: ", randomOption);
   if (randomOption === userInput) {
-    console.log("Ничья!");
+    console.log("It`s a draw!");
     return;
   } else {
     switch (userInput) {
       case "rock":
-        // console.log("Пользователь ввел камень");
         if (randomOption === "paper") {
-          console.log("The user lost=(");
+          console.log("The user lost =(");
           return;
         }
         if (randomOption === "scissors") {
@@ -27,7 +21,6 @@ const gameStart = () => {
         }
         break;
       case "paper":
-        // console.log("Пользователь ввел бумага");
         if (randomOption === "scissors") {
           console.log("The user lost=(");
           return;
@@ -38,7 +31,6 @@ const gameStart = () => {
         }
         break;
       case "scissors":
-        // console.log("Пользователь ввел ножницы");
         if (randomOption === "rock") {
           console.log("The user lost=(");
           return;
@@ -49,9 +41,7 @@ const gameStart = () => {
         }
         break;
       default:
-        console.log(
-          "Ошибка ввода. Доступные для ввода значения: rock, paper, scissors"
-        );
+        console.log("Invalid input. Please enter: rock, paper or scissors.");
     }
   }
 };
