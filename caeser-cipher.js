@@ -43,37 +43,40 @@ const cipherLetter = (letter, shift) => {
     (item) => item === letter.toLowerCase() //если findIndex не находит букву(item) возвращает -1
   );
   if (currentLetterIndex < 0) {
-    return "*";
+    return letter; //не буква - не шифруем
   }
-  const newIndex = currentLetterIndex + shift;
-  let result = "";
-  if (newIndex > 0) {
-    if (newIndex <= alphabet.length) {
-      const newLetter = alphabet[newIndex];
-      result = newLetter;
-    } else {
-      const remainderIndex = newIndex % alphabet.length;
-      const newLetter = alphabet[remainderIndex];
-      result = newLetter;
-    }
-  } else {
-    // если хвоста нет
-    if (newIndex * -1 <= alphabet.length) {
-      const newLetter = alphabet[alphabet.length + newIndex];
-      result = newLetter;
-    } else {
-      const remainderIndex = newIndex % alphabet.length;
-      const newLetter = alphabet[alphabet.length + remainderIndex];
-      result = newLetter;
-    }
-  }
-  return result;
+  // const newIndex = currentLetterIndex + shift;
+  // let result = "";
+  // if (newIndex >= 0) {
+  //   if (newIndex < alphabet.length) {
+  //     const newLetter = alphabet[newIndex];
+  //     result = newLetter;
+  //   } else {
+  //     const remainderIndex = newIndex % alphabet.length;
+  //     const newLetter = alphabet[remainderIndex];
+  //     result = newLetter;
+  //   }
+  // } else {
+  //   // если хвоста нет
+  //   if (newIndex * -1 <= alphabet.length) {
+  //     const newLetter = alphabet[alphabet.length + newIndex];
+  //     result = newLetter;
+  //   } else {
+  //     const remainderIndex = newIndex % alphabet.length;
+  //     const newLetter = alphabet[alphabet.length + remainderIndex];
+  //     result = newLetter;
+  //   }
+  // }
+  // return result;
+  const newIndex =
+    (currentLetterIndex + shift + alphabet.length) % alphabet.length;
+  return alphabet[newIndex];
 };
 
 const cipherWord = (word, shift) => {
   let result;
-  const lettersArrey = word.split("");
-  const newLettersArr = lettersArrey.map((letter) => {
+  const lettersArray = word.split("");
+  const newLettersArr = lettersArray.map((letter) => {
     const newLetter = cipherLetter(letter, shift);
     return newLetter;
   });
@@ -82,9 +85,9 @@ const cipherWord = (word, shift) => {
 };
 
 const cipherPhrase = () => {
-  const userPhrace = process.argv[2];
+  const userPhrase = process.argv[2];
   const shiftNumber = Number(process.argv[3]);
-  const wordsArr = userPhrace.split(" ");
+  const wordsArr = userPhrase.split(" ");
   const cipheredWordsArr = wordsArr.map((word) => {
     const result = cipherWord(word, shiftNumber);
     return result;
