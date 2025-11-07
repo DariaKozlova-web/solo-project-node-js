@@ -38,8 +38,6 @@ const alphabet = [
   "z",
 ];
 
-// const userPhrace = process.argv[2];
-// const shiftNumber = Number(process.argv[3]);
 const cipherLetter = (letter, shift) => {
   const currentLetterIndex = alphabet.findIndex(
     (item) => item === letter.toLowerCase() //если findIndex не находит букву(item) возвращает -1
@@ -71,6 +69,28 @@ const cipherLetter = (letter, shift) => {
   }
   return result;
 };
-const cipheredLetter = cipherLetter("A", 1);
-console.log(cipheredLetter);
-console.log(alphabet.length);
+
+const cipherWord = (word, shift) => {
+  let result;
+  const lettersArrey = word.split("");
+  const newLettersArr = lettersArrey.map((letter) => {
+    const newLetter = cipherLetter(letter, shift);
+    return newLetter;
+  });
+  result = newLettersArr.join("");
+  return result;
+};
+
+const cipherPhrase = () => {
+  const userPhrace = process.argv[2];
+  const shiftNumber = Number(process.argv[3]);
+  const wordsArr = userPhrace.split(" ");
+  const cipheredWordsArr = wordsArr.map((word) => {
+    const result = cipherWord(word, shiftNumber);
+    return result;
+  });
+  return cipheredWordsArr.join(" ");
+};
+
+const caesarCipher = cipherPhrase();
+console.log(caesarCipher);
