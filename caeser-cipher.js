@@ -40,37 +40,44 @@ const alphabet = [
 
 const cipherLetter = (letter, shift) => {
   const currentLetterIndex = alphabet.findIndex(
-    (item) => item === letter.toLowerCase() //если findIndex не находит букву(item) возвращает -1
+    (item) => item === letter.toLowerCase() //wenn findIndex keinen Buchstaben findet(item) gibt es -1 zurück
   );
   if (currentLetterIndex < 0) {
-    return letter; //не буква - не шифруем
+    return letter;
   }
-  // const newIndex = currentLetterIndex + shift;
-  // let result = "";
-  // if (newIndex >= 0) {
-  //   if (newIndex < alphabet.length) {
-  //     const newLetter = alphabet[newIndex];
-  //     result = newLetter;
-  //   } else {
-  //     const remainderIndex = newIndex % alphabet.length;
-  //     const newLetter = alphabet[remainderIndex];
-  //     result = newLetter;
-  //   }
-  // } else {
-  //   // если хвоста нет
-  //   if (newIndex * -1 <= alphabet.length) {
-  //     const newLetter = alphabet[alphabet.length + newIndex];
-  //     result = newLetter;
-  //   } else {
-  //     const remainderIndex = newIndex % alphabet.length;
-  //     const newLetter = alphabet[alphabet.length + remainderIndex];
-  //     result = newLetter;
-  //   }
-  // }
-  // return result;
-  const newIndex =
-    (currentLetterIndex + shift + alphabet.length) % alphabet.length;
-  return alphabet[newIndex];
+  const newIndex = currentLetterIndex + shift;
+  let result = "";
+  if (newIndex >= 0) {
+    if (newIndex < alphabet.length) {
+      const newLetter = alphabet[newIndex];
+      result = newLetter;
+    } else {
+      const remainderIndex = newIndex % alphabet.length;
+      const newLetter = alphabet[remainderIndex];
+      result = newLetter;
+    }
+  } else {
+    // если хвоста нет
+    if (newIndex * -1 <= alphabet.length) {
+      const newLetter = alphabet[alphabet.length + newIndex];
+      result = newLetter;
+    } else {
+      const remainderIndex = newIndex % alphabet.length;
+      const newLetter = alphabet[alphabet.length + remainderIndex];
+      result = newLetter;
+    }
+  }
+  return result;
+
+  //   const newIndex =
+  //     (currentLetterIndex + shift + alphabet.length) % alphabet.length;
+  //   return alphabet[newIndex];
+  // };
+
+  // const n = alphabet.length;
+  // const shiftMod = ((shift % n) + n) % n; // теперь shiftMod в 0..n-1
+  // const newIndex = (currentLetterIndex + shiftMod) % n;
+  // return alphabet[newIndex];
 };
 
 const cipherWord = (word, shift) => {
